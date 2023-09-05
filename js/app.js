@@ -1,5 +1,3 @@
-console.log('connected')
-
 // Main Function:
 //   Initialize deck of card array
 //   Shuffle deck of cards
@@ -34,7 +32,15 @@ console.log('connected')
 // Add betting and odds:
 //   $10, $25, $50, $100 buttons to bet. (Maximum bet of $500?)
 
-// /*----------Functions---------------*/
+/*-------------------------------Variables------------------------------------*/
+let cards = []
+let sum = 0
+let message = ""
+let messageContent = document.getElementById('message')
+let sumContent = document.getElementById('sum')
+let cardsContent = document.getElementById('cards')
+
+/*-------------------------------Functions------------------------------------*/
 
 // Initialize Deck Function:
 //   Create a list of cards 2-10 and face cards (J, Q, K, A) for   each suit (Hearts, Diamonds, Clubs, Spades)
