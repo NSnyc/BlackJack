@@ -38,7 +38,6 @@ const hitBtn = document.getElementById('hit')
 const stayBtn = document.getElementById('stay')
 
 /*-------------------------------Variables------------------------------------*/
-let cards = []
 let sum = 0
 let message = ""
 let messageContent = document.getElementById('message')
@@ -48,19 +47,26 @@ let cardsContent = document.getElementById('cards')
 /*-------------------------------Functions------------------------------------*/
 createDeck()
 
-function getRandomCard() {
-  let num = Math.floor(Math.random() * 13) + 1
-  if (num === 1) return 11
-  else if (num === 11 || num === 12 || num === 13) return 10
-  else return num
-}
+// function getRandomCard() {
+//   let num = Math.floor(Math.random() * 13) + 1
+//   if (num === 1) return 11
+//   else if (num === 11 || num === 12 || num === 13) return 10
+//   else return num
+// }
 
 function createDeck() {
+  let cards = [];
   values.forEach((value) => {
     suits.forEach((suit) => {
       const card = value + suit
+      cards.push(card)
     })
   })
+  for (let i = cards.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [cards[i], cards[j]] = [cards[j], cards[i]]
+  }
+  deck = cards
 }
 
 // Initialize Deck Function:
