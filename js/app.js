@@ -31,6 +31,11 @@
 
 // Add betting and odds:
 //   $10, $25, $50, $100 buttons to bet. (Maximum bet of $500?)
+/*------------------------------Constants------------------------------------*/
+const values = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']
+const suits = ['♠', '♥', '♣', '♦']
+const hitBtn = document.getElementById('hit')
+const stayBtn = docuement.getElementById('stay')
 
 /*-------------------------------Variables------------------------------------*/
 let cards = []
