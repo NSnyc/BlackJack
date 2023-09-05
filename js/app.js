@@ -73,6 +73,16 @@ function dealCards() {
   dealerHand.push(deck.pop())
 }
 
+function cardValue(card) {
+  const face = card.slice(0, -1)
+  if (face === 'A') {
+    return 11
+  } else if (face === 'J', face === 'Q', face === 'K') {
+    return 10
+  } else {
+    return parseInt(face, 10)
+  }
+}
 
 //// Initialize Deck Function:
 ////   Create a list of cards 2-10 and face cards (J, Q, K, A) for   each suit (Hearts, Diamonds, Clubs, Spades)
