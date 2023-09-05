@@ -38,6 +38,9 @@ const hitBtn = document.getElementById('hit')
 const stayBtn = document.getElementById('stay')
 
 /*-------------------------------Variables------------------------------------*/
+let playerHand = []
+let dealerHand = []
+let deck = []
 let sum = 0
 let message = ""
 let messageContent = document.getElementById('message')
@@ -46,13 +49,7 @@ let cardsContent = document.getElementById('cards')
 
 /*-------------------------------Functions------------------------------------*/
 createDeck()
-
-// function getRandomCard() {
-//   let num = Math.floor(Math.random() * 13) + 1
-//   if (num === 1) return 11
-//   else if (num === 11 || num === 12 || num === 13) return 10
-//   else return num
-// }
+dealCards()
 
 function createDeck() {
   let cards = [];
@@ -69,18 +66,26 @@ function createDeck() {
   deck = cards
 }
 
-// Initialize Deck Function:
-//   Create a list of cards 2-10 and face cards (J, Q, K, A) for   each suit (Hearts, Diamonds, Clubs, Spades)
-//   Return deck
+function dealCards() {
+  playerHand.push(deck.pop())
+  playerHand.push(deck.pop())
+  dealerHand.push(deck.pop())
+  dealerHand.push(deck.pop())
+}
 
-// Shuffle Deck Function:
-//   Shuffle the list of cards
-//   Return shuffled deck
 
-// Deal Initial Cards Function:
-//   Pop two cards from deck to player hand
-//   Pop two cards from deck to dealer hand
-//   One Card is hidden
+//// Initialize Deck Function:
+////   Create a list of cards 2-10 and face cards (J, Q, K, A) for   each suit (Hearts, Diamonds, Clubs, Spades)
+////   Return deck
+
+//// Shuffle Deck Function:
+////   Shuffle the list of cards
+////   Return shuffled deck
+
+//// Deal Initial Cards Function:
+////   Pop two cards from deck to player hand
+////   Pop two cards from deck to dealer hand
+//   One Card is hidden (CSS)
 
 // Output Game State Function:
 //   Output player hand and sum
