@@ -42,6 +42,14 @@ let cardsContent = document.getElementById('cards')
 
 /*-------------------------------Functions------------------------------------*/
 
+function getRandomCard() {
+  let num = Math.floor(Math.random() * 13) + 1
+  if (num === 1) return 11
+  else if (num === 11 || num === 12 || num === 13) return 10
+  else return num
+}
+
+
 // Initialize Deck Function:
 //   Create a list of cards 2-10 and face cards (J, Q, K, A) for   each suit (Hearts, Diamonds, Clubs, Spades)
 //   Return deck
