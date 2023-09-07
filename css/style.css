@@ -1,19 +1,19 @@
 body {
   background-image: url('../assets/images/background.jpg');
   background-repeat: no-repeat;
-  background-size: 100vw 100vw;
+  background-size: 130vw 100vw;
   background-position: center center;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  width: 100vw;
-  height: 100vw;
-  max-height: 100vw;
-  max-width: 100vw;
+  width: 98vw;
+  height: 98vw;
+  max-height: 98vw;
+  max-width: 98vw;
   margin: auto;
   position: relative;
-  overflow:visible;
+  overflow: visible;
 }
 
 h1#message {
@@ -23,7 +23,7 @@ h1#message {
   transform: translateX(-50%);
   color: antiquewhite;
   text-shadow: 2px 2px 2px black;
-  font-size: 4vw;
+  font-size: 3vw;
 }
 
 #dealerhand {
@@ -56,6 +56,7 @@ button {
   color: black;
   border: .3vw solid rgb(28, 28, 28);
   transform: translateX(-50%);
+  font-weight: bolder;
 }
 
 button:hover {
@@ -63,8 +64,8 @@ button:hover {
 }
 
 button:active {
-  background-color: red;
-  border: .2vw solid rgb(28, 28, 28)
+  background-color: darkred;
+  border: .1vw solid rgb(28, 28, 28)
 }
 
 
@@ -94,4 +95,8 @@ button:active {
   left: 50%;
   transform: translateX(-50%);
   font-size: 2vw;
+}
+
+div {
+  width:max-content;
 }
