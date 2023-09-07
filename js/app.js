@@ -1,32 +1,3 @@
-// Main Function:
-////   Initialize deck of card array
-////   Shuffle deck of cards
-////   Initialize player and dealer hands as empty
-//   Some message to start game
-
-//// While playing:
-////   Deal cards to player and dealer (one dealer card face down)
-////   Output initial game state (player's cards and dealer cards)	
-
-//// While player's turn:
-////   Ask player if they want to "hit" or "stand"
-////     Make “hit” and “stand” buttons
-
-//// If player chooses to "hit":
-////   Add a card to player's hand
-////   Output updated game state
-////   Check if player is bust (cards total over 21)
-////     If bust, end player's turn
-////       Else: Still player’s turn
-
-//// While dealer's turn:
-////   If dealer hand is less than 17: Add a card to dealer's hand
-////     Else: End dealer's turn     
-
-//// Determine winner based on rules (who is closer to 21 without going over)
-////   Output winner
-
-//// Reset Button: Ask player if they want to play another round
 //   Make the buttons look pretty or Ben will strangle me
 
 // Add betting and odds:commit -m
@@ -109,7 +80,7 @@ function dealCards() {
   playerHand.push(deck.pop())
   dealerHand.push(deck.pop())
   dealerHand.push(deck.pop())
-  let cardImg = document.createElement("img");
+  let cardImg = document.createElement("img")
   cardImg.src = `../assets/images/backs/blue.svg`
   cardImg.className = "hidden"
   cardImg.dataset.card = dealerHand[0]
