@@ -8,9 +8,9 @@
 ////   Deal cards to player and dealer (one dealer card face down)
 ////   Output initial game state (player's cards and dealer cards)	
 
-// While player's turn:
+//// While player's turn:
 ////   Ask player if they want to "hit" or "stand"
-//     Make “hit” and “stand” buttons
+////     Make “hit” and “stand” buttons
 
 //// If player chooses to "hit":
 ////   Add a card to player's hand
@@ -19,9 +19,9 @@
 ////     If bust, end player's turn
 ////       Else: Still player’s turn
 
-// While dealer's turn:
-//   If dealer hand is less than 17: Add a card to dealer's hand
-//     Else: End dealer's turn     
+//// While dealer's turn:
+////   If dealer hand is less than 17: Add a card to dealer's hand
+////     Else: End dealer's turn     
 
 //// Determine winner based on rules (who is closer to 21 without going over)
 ////   Output winner
@@ -150,7 +150,7 @@ function sumHand(hand) {
 function showSums() {
   let playerSum = sumHand(playerHand)
   let dealerSum = sumHand(dealerHand)
-  sumContent.innerHTML = `Player Sum: ${playerSum}, Dealer Sum: ${dealerSum}`
+  sumContent.innerHTML = `Player Hand: ${playerSum}`
 }
 
 function render() {
@@ -158,7 +158,6 @@ function render() {
   playerContent.innerHTML = ""
   dealerHand.forEach((card, index) => {
     let cardImg = document.createElement("img")
-    // If it's the first card of the dealer and it's not dealer's turn, render it as hidden
     if (index === 0 && !isDealerTurn) {
       cardImg.src = `../assets/images/backs/blue.svg`
       cardImg.className = "hidden"
@@ -179,11 +178,7 @@ function render() {
 
 function checkForWinner() {
   if (dealerHand.length === 2 && sumHand(dealerHand) === 21) {
-    let hiddenCard = dealerContent.querySelector('.hidden')
-    if (hiddenCard) {
-        hiddenCard.classList.remove('hidden')
-        hiddenCard.src = `../assets/images/cards/${hiddenCard.dataset.card}.svg` 
-    }
+    revealHiddenCard()
     messageContent.innerHTML = "Dealer has Blackjack! Dealer Wins!"
       return
   }
@@ -206,14 +201,18 @@ function dealerTurn() {
   stayBtn.disabled = true
   hitBtn.disabled = true
   isDealerTurn = true
-  let hiddenCard = dealerContent.querySelector('.hidden');
-  if (hiddenCard) {
-    hiddenCard.classList.remove('hidden');
-    hiddenCard.src = `../assets/images/cards/${hiddenCard.dataset.card}.svg`;
-  }
+  revealHiddenCard()
   if (sumHand(dealerHand) < 17) {
       dealerHand.push(deck.pop())
       render()
   }
   checkForWinner()
+}
+
+function revealHiddenCard() {
+  let hiddenCard = dealerContent.querySelector('.hidden')
+  if (hiddenCard) {
+      hiddenCard.classList.remove('hidden')
+      hiddenCard.src = `../assets/images/cards/${hiddenCard.dataset.card}.svg`
+  }
 }
