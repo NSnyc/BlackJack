@@ -29,7 +29,7 @@
 //// Reset Button: Ask player if they want to play another round
 //   Make the buttons look pretty or Ben will strangle me
 
-// Add betting and odds:
+// Add betting and odds:commit -m
 //   $10, $25, $50, $100 buttons to bet. (Maximum bet of $500?)
 /*------------------------------Constants-----------------------------------------------*/
 const values = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']
@@ -65,6 +65,8 @@ function init() {
   playerHand = []
   dealerHand = []
   message = ""
+  hitBtn.disabled = false
+  stayBtn.disabled = false
   createDeck()
   dealCards()
   showSums()
@@ -123,7 +125,7 @@ function sumHand(hand) {
   let aces = 0
   hand.forEach(card => {
     const value = cardValue(card)
-    sum += value;
+    sum += value
     if (value === 11) {
       aces += 1
     }
@@ -186,4 +188,14 @@ function checkForWinner() {
   } else {
       messageContent.innerHTML = "Dealer Wins!"
   }
+}
+
+function dealerTurn() {
+  stayBtn.disabled = true
+  hitBtn.disabled = true
+  if (sumHand(dealerHand) < 17) {
+      dealerHand.push(deck.pop())
+      render()
+  }
+  checkForWinner()
 }
