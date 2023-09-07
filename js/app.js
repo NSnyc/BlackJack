@@ -35,7 +35,7 @@ function init() {
   playerHand = []
   dealerHand = []
   message = ""
-  messageContent.innerHTML = "";
+  messageContent.innerHTML = ""
   hitBtn.disabled = false
   stayBtn.disabled = false
   isDealerTurn = false
@@ -47,14 +47,14 @@ function init() {
 }
 
 function handleClick(event) {
-  const currentPlayerSum = sumHand(playerHand)
+  const currentPlayerSum = sumHand(playerHand);
   if (event.target.id === "hit" && currentPlayerSum < 21) {
       playerHand.push(deck.pop())
-      checkForWinner()
       render()
   } else if (event.target.id === "stay") {
       dealerTurn()
   }
+  checkForWinner()
 }
 
 function createDeck() {
@@ -117,7 +117,6 @@ function sumHand(hand) {
 
 function showSums() {
   let playerSum = sumHand(playerHand)
-  let dealerSum = sumHand(dealerHand)
   sumContent.innerHTML = `Player Hand: ${playerSum}`
 }
 
@@ -150,30 +149,35 @@ function checkForWinner() {
   if (dealerHand.length === 2) {
     if (dealerTotal === 21 && playerTotal === 21) {
       messageContent.innerHTML = "Both have Blackjack! Push!"
-      hitBtn.disabled = true;
-      stayBtn.disabled = true;
+      hitBtn.disabled = true
+      stayBtn.disabled = true
+      revealHiddenCard()
       return
     } else if (dealerTotal === 21) {
       messageContent.innerHTML = "Dealer has Blackjack! Dealer Wins!"
       hitBtn.disabled = true
       stayBtn.disabled = true
+      revealHiddenCard()
       return
-      }
+    }
   }
   if (playerTotal > 21) {
-    dealerTurn()
     messageContent.innerHTML = "Player Busted! Dealer Wins!"
-    return
+    dealerTurn()
+  } else if (playerTotal === 21 && playerHand.length ===2) {
+    messageContent.innerHTML = "Player has Blackjack!"
+    dealerTurn()
+    checkForWinner()
   } else if (isDealerTurn) {
-    if (dealerTotal > 21) {
-      messageContent.innerHTML = "Dealer Busted! Player Wins!"
-    } else if (dealerTotal === playerTotal) {
-      messageContent.innerHTML = "It's a tie! Push!"
-    } else if (playerTotal > dealerTotal) {
-      messageContent.innerHTML = "Player Wins!"
-    } else {
-      messageContent.innerHTML = "Dealer Wins!"
-    }
+      if (dealerTotal > 21) {
+        messageContent.innerHTML = "Dealer Busted! Player Wins!"
+      } else if (dealerTotal === playerTotal) {
+        messageContent.innerHTML = "It's a tie! Push!"
+      } else if (playerTotal > dealerTotal) {
+        messageContent.innerHTML = "Player Wins!"
+      } else {
+        messageContent.innerHTML = "Dealer Wins!"
+      }
   }
 }
 
@@ -182,11 +186,10 @@ function dealerTurn() {
   hitBtn.disabled = true
   isDealerTurn = true
   revealHiddenCard()
-  if (sumHand(dealerHand) < 17) {
+  while (sumHand(dealerHand) < 17) {
       dealerHand.push(deck.pop())
       render()
   }
-  checkForWinner()
 }
 
 function revealHiddenCard() {
