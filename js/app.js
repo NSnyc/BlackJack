@@ -55,11 +55,15 @@ let playerContent = document.getElementById('playerhand')
 
 hitBtn.addEventListener('click', handleClick)
 stayBtn.addEventListener('click', handleClick)
+startBtn.addEventListener('click', init)
+
 
 /*-------------------------------Functions------------------------------------*/
 init()
 
 function init() {
+  playerHand = []
+  dealerHand = []
   createDeck()
   dealCards()
   showSums()
