@@ -4,29 +4,29 @@
 ////   Initialize player and dealer hands as empty
 //   Some message to start game
 
-// While playing:
-//   Deal cards to player and dealer (one dealer card face down)
-//   Output initial game state (player's cards and dealer cards)	
+//// While playing:
+////   Deal cards to player and dealer (one dealer card face down)
+////   Output initial game state (player's cards and dealer cards)	
 
 // While player's turn:
-//   Ask player if they want to "hit" or "stand"
+////   Ask player if they want to "hit" or "stand"
 //     Make “hit” and “stand” buttons
 
-// If player chooses to "hit":
-//   Add a card to player's hand
-//   Output updated game state
-//   Check if player is bust (cards total over 21)
-//     If bust, end player's turn
-//       Else: Still player’s turn
+//// If player chooses to "hit":
+////   Add a card to player's hand
+////   Output updated game state
+////   Check if player is bust (cards total over 21)
+////     If bust, end player's turn
+////       Else: Still player’s turn
 
 // While dealer's turn:
 //   If dealer hand is less than 17: Add a card to dealer's hand
 //     Else: End dealer's turn     
 
-// Determine winner based on rules (who is closer to 21 without going over)
-//   Output winner
+//// Determine winner based on rules (who is closer to 21 without going over)
+////   Output winner
 
-// Reset Button: Ask player if they want to play another round
+//// Reset Button: Ask player if they want to play another round
 //   Make the buttons look pretty or Ben will strangle me
 
 // Add betting and odds:
@@ -64,10 +64,12 @@ init()
 function init() {
   playerHand = []
   dealerHand = []
+  message = ""
   createDeck()
   dealCards()
   showSums()
   render()
+  checkForWinner()
 }
 
 function handleClick(event) {
@@ -84,7 +86,7 @@ function handleClick(event) {
 }
 
 function createDeck() {
-  let cards = [];
+  let cards = []
   values.forEach((value) => {
     suits.forEach((suit) => {
       const card = suit + value
@@ -143,48 +145,45 @@ function render() {
   dealerContent.innerHTML = ""
   playerContent.innerHTML = ""
   dealerHand.forEach((card, index) => {
+      let cardImg = document.createElement("img")
       if (index === 0) {
-          let hiddenCardDiv = document.createElement("div")
-          hiddenCardDiv.className = "card hidden"
-          hiddenCardDiv.dataset.card = card
-          dealerContent.appendChild(hiddenCardDiv)
+          cardImg.src = `../assets/images/backs/blue.svg`
+          cardImg.className = "hidden"
+          cardImg.dataset.card = card
       } else {
-          let cardImg = document.createElement("img")
-          cardImg.src = `./assets/images/cards/${card}.svg`
-          dealerContent.appendChild(cardImg)
+          cardImg.src = `../assets/images/cards/${card}.svg`
       }
+      dealerContent.appendChild(cardImg)
   })
   playerHand.forEach(card => {
       let cardImg = document.createElement("img")
-      cardImg.src = `./assets/images/cards/${card}.svg`
+      cardImg.src = `../assets/images/cards/${card}.svg`
       playerContent.appendChild(cardImg)
   })
   showSums()
 }
 
-//// Initialize Deck Function:
-////   Create a list of cards 2-10 and face cards (J, Q, K, A) for   each suit (Hearts, Diamonds, Clubs, Spades)
-////   Return deck
-
-//// Shuffle Deck Function:
-////   Shuffle the list of cards
-////   Return shuffled deck
-
-//// Deal Initial Cards Function:
-////   Pop two cards from deck to player hand
-////   Pop two cards from deck to dealer hand
-////   One Card is hidden (CSS)
-
-//// Output Game State Function:
-////   Output player hand and sum
-////   Output one dealer card
-
-// isBust Function:
-//   Calculate sum of hand
-//     If sum > 21: Return True
-//       Else: Return False
-
-//// Determine Winner Function:
-////   Calculate sums for player and dealer hands
-////   Determine winner based on Blackjack rules
-////   Return winner
+function checkForWinner() {
+  if (dealerHand.length === 2 && sumHand(dealerHand) === 21) {
+    let hiddenCard = dealerContent.querySelector('.hidden')
+    if (hiddenCard) {
+        hiddenCard.classList.remove('hidden')
+        hiddenCard.src = `../assets/images/cards/${hiddenCard.dataset.card}.svg` 
+    }
+    messageContent.innerHTML = "Dealer has Blackjack! Dealer Wins!"
+      return
+  }
+  const playerTotal = sumHand(playerHand)
+  const dealerTotal = sumHand(dealerHand)
+  if (playerTotal > 21) {
+      messageContent.innerHTML = "Player Busted! Dealer Wins!"
+  } else if (dealerTotal > 21) {
+      messageContent.innerHTML = "Dealer Busted! Player Wins!"
+  } else if (dealerTotal === playerTotal) {
+      messageContent.innerHTML = "It's a tie!"
+  } else if (playerTotal > dealerTotal) {
+      messageContent.innerHTML = "Player Wins!"
+  } else {
+      messageContent.innerHTML = "Dealer Wins!"
+  }
+}
