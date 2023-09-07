@@ -3,6 +3,19 @@ body {
   text-align: center;
 }
 
-.is-hidden {
-  visibility: hidden;
+.card.hidden {
+  background-image: url("../assets/images/backs/blue.svg");
+  background-size: cover; 
+  width: 80px;
+  height: 111.59px; 
+  margin: 5px;
+  background-color: white;
+  display: inline-block;
+}
+
+#dealerhand img, #playerhand img{
+  background-color: white;  
+  width: 80px;               
+  height: auto;              
+  margin: 5px;               
 }

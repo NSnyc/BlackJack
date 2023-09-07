@@ -61,6 +61,7 @@ function init() {
   createDeck()
   dealCards()
   showSums()
+  render()
 }
 
 function createDeck() {
@@ -120,6 +121,28 @@ function showSums() {
   sumContent.innerHTML = `Player Sum: ${playerSum}, Dealer Sum: ${dealerSum}`
 }
 
+function render() {
+  dealerContent.innerHTML = ""
+  playerContent.innerHTML = ""
+  dealerHand.forEach((card, index) => {
+      if (index === 0) {
+          let hiddenCardDiv = document.createElement("div")
+          hiddenCardDiv.className = "card hidden"
+          hiddenCardDiv.dataset.card = card
+          dealerContent.appendChild(hiddenCardDiv)
+      } else {
+          let cardImg = document.createElement("img")
+          cardImg.src = `./assets/images/cards/${card}.svg`
+          dealerContent.appendChild(cardImg)
+      }
+  })
+  playerHand.forEach(card => {
+      let cardImg = document.createElement("img")
+      cardImg.src = `./assets/images/cards/${card}.svg`
+      playerContent.appendChild(cardImg)
+  })
+  showSums()
+}
 
 //// Initialize Deck Function:
 ////   Create a list of cards 2-10 and face cards (J, Q, K, A) for   each suit (Hearts, Diamonds, Clubs, Spades)
@@ -134,8 +157,8 @@ function showSums() {
 ////   Pop two cards from deck to dealer hand
 //   One Card is hidden (CSS)
 
-// Output Game State Function:
-//   Output player hand and sum
+//// Output Game State Function:
+////   Output player hand and sum
 //   Output one dealer card
 
 // isBust Function:
