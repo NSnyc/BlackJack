@@ -34,8 +34,8 @@
 /*------------------------------Constants-----------------------------------------------*/
 const values = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']
 const suits = ['♠', '♥', '♣', '♦']
-const hitBtn = document.getElementById('hit')
-const stayBtn = document.getElementById('stay')
+const hitBtn = document.getElementById('hit', handleClick)
+const stayBtn = document.getElementById('stay', handleClick)
 const startBtn = document.getElementById('start', dealCards)
 const cardEl = document.createElement('div')
 cardEl.classList.add('card')
@@ -48,11 +48,13 @@ let dealerSum = 0
 let message = ""
 let playerAceCount = 0
 let dealerAceCount = 0
-/*------------------------------------Event Listeners------------------------------------*/
 let messageContent = document.getElementById('message')
 let sumContent = document.getElementById('sum')
 let dealerContent = document.getElementById('dealerhand')
 let playerContent = document.getElementById('playerhand')
+
+hitBtn.addEventListener('click', handleClick)
+stayBtn.addEventListener('click', handleClick)
 
 /*-------------------------------Functions------------------------------------*/
 init()
@@ -62,6 +64,19 @@ function init() {
   dealCards()
   showSums()
   render()
+}
+
+function handleClick(event) {
+  const currentPlayerSum = sumHand(playerHand)
+  if (event.target.id === "hit" && currentPlayerSum < 21) {
+      playerHand.push(deck.pop())
+      render()
+      if (sumHand(playerHand) > 21) {
+          messageContent.innerHTML = "Player Busted! Dealer Wins!"
+      }
+  } else if (event.target.id === "stay") {
+      dealerTurn()
+  }
 }
 
 function createDeck() {
@@ -96,7 +111,6 @@ function cardValue(card) {
     return parseInt(face, 10)
   }
 }
-
 
 function sumHand(hand) {
   let sum = 0
@@ -155,18 +169,18 @@ function render() {
 //// Deal Initial Cards Function:
 ////   Pop two cards from deck to player hand
 ////   Pop two cards from deck to dealer hand
-//   One Card is hidden (CSS)
+////   One Card is hidden (CSS)
 
 //// Output Game State Function:
 ////   Output player hand and sum
-//   Output one dealer card
+////   Output one dealer card
 
 // isBust Function:
 //   Calculate sum of hand
 //     If sum > 21: Return True
 //       Else: Return False
 
-// Determine Winner Function:
-//   Calculate sums for player and dealer hands
-//   Determine winner based on Blackjack rules
-//   Return winner
+//// Determine Winner Function:
+////   Calculate sums for player and dealer hands
+////   Determine winner based on Blackjack rules
+////   Return winner
