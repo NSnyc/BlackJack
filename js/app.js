@@ -4,8 +4,7 @@ const suits = ['♠', '♥', '♣', '♦']
 const hitBtn = document.getElementById('hit')
 const stayBtn = document.getElementById('stay')
 const startBtn = document.getElementById('start')
-const cardEl = document.createElement('div')
-cardEl.classList.add('card')
+
 
 const shuffleSound = new Audio('../assets/audio/shuffling-cards.wav')
 shuffleSound.volume = 0.70
@@ -22,9 +21,6 @@ let dealerHand = []
 let deck = []
 let playerSum = 0
 let dealerSum = 0
-let message = ""
-let playerAceCount = 0
-let dealerAceCount = 0
 let isDealerTurn = false
 let messageContent = document.getElementById('message')
 let sumContent = document.getElementById('sum')
@@ -43,7 +39,6 @@ init()
 function init() {
   playerHand = []
   dealerHand = []
-  message = ""
   messageContent.innerHTML = ""
   hitBtn.disabled = false
   stayBtn.disabled = false
