@@ -11,21 +11,29 @@
     rel="icon" 
     href="../assets/images/favicon.png" 
     type="image/png"
-    sizes="32x32"
-  >
+    sizes="32x32">
   <title>Document</title>
 </head>
 <body>
-  <h1>Black Jack</h1>
-  <h1 id="message">Player/ Dealer Hands</h1>
-  <div id="dealerhand">
+  <div class="container">
+    <h1></h1>
+    <div class="game-container">
+      <div class="dealer-section">
+        <div id="dealerhand"></div>
+        <h1 id="message"></h1>
+      </div>
+      <div class="buttons-section">
+        <button id="start">Deal New Hands</button>
+        <p></p>
+        <button id="hit">HIT</button>
+        <button id="stay">STAY</button>
+      </div>
+      <div id="sum"></div>
+      <div class="player-section">
+        <div id="playerhand"></div>
+      </div>
+    </div>
   </div>
-  <button id="hit">HIT</button>
-  <button id="stay">STAY</button>
-  <div id="playerhand">
-  </div>
-  <p>
-  <button id="start">Deal New Hands</button>
-  <div id="sum">Sum:</div>
 </body>
+
 </html>

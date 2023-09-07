@@ -1,16 +1,13 @@
-//   Make the buttons look pretty or Ben will strangle me
-
-// Add betting and odds:commit -m
-//   $10, $25, $50, $100 buttons to bet. (Maximum bet of $500?)
 /*------------------------------Constants-----------------------------------------------*/
 const values = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']
 const suits = ['♠', '♥', '♣', '♦']
-const hitBtn = document.getElementById('hit', handleClick)
-const stayBtn = document.getElementById('stay', handleClick)
-const startBtn = document.getElementById('start', dealCards)
+const hitBtn = document.getElementById('hit')
+const stayBtn = document.getElementById('stay')
+const startBtn = document.getElementById('start')
 const cardEl = document.createElement('div')
 cardEl.classList.add('card')
-/*---------------------------Cache Element References------------------------------------*/
+
+/*-------------------------------Variables-----------------------------------------------*/
 let playerHand = []
 let dealerHand = []
 let deck = []
@@ -25,6 +22,7 @@ let sumContent = document.getElementById('sum')
 let dealerContent = document.getElementById('dealerhand')
 let playerContent = document.getElementById('playerhand')
 
+/*---------------------------Cache Element References------------------------------------*/
 hitBtn.addEventListener('click', handleClick)
 stayBtn.addEventListener('click', handleClick)
 startBtn.addEventListener('click', init)
@@ -52,9 +50,6 @@ function handleClick(event) {
   if (event.target.id === "hit" && currentPlayerSum < 21) {
       playerHand.push(deck.pop())
       render()
-      if (sumHand(playerHand) > 21) {
-          messageContent.innerHTML = "Player Busted! Dealer Wins!"
-      }
   } else if (event.target.id === "stay") {
       dealerTurn()
   }
