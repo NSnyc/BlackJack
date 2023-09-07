@@ -1,7 +1,7 @@
 // Main Function:
-//   Initialize deck of card array
-//   Shuffle deck of cards
-//   Initialize player and dealer hands as empty
+////   Initialize deck of card array
+////   Shuffle deck of cards
+////   Initialize player and dealer hands as empty
 //   Some message to start game
 
 // While playing:
@@ -31,31 +31,43 @@
 
 // Add betting and odds:
 //   $10, $25, $50, $100 buttons to bet. (Maximum bet of $500?)
-/*------------------------------Constants------------------------------------*/
+/*------------------------------Constants-----------------------------------------------*/
 const values = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']
 const suits = ['♠', '♥', '♣', '♦']
 const hitBtn = document.getElementById('hit')
 const stayBtn = document.getElementById('stay')
-
-/*-------------------------------Variables------------------------------------*/
+const startBtn = document.getElementById('start', dealCards)
+const cardEl = document.createElement('div')
+cardEl.classList.add('card')
+/*---------------------------Cache Element References------------------------------------*/
 let playerHand = []
 let dealerHand = []
 let deck = []
-let sum = 0
+let playerSum = 0
+let dealerSum = 0
 let message = ""
+let playerAceCount = 0
+let dealerAceCount = 0
+/*------------------------------------Event Listeners------------------------------------*/
 let messageContent = document.getElementById('message')
 let sumContent = document.getElementById('sum')
-let cardsContent = document.getElementById('cards')
+let dealerContent = document.getElementById('dealerhand')
+let playerContent = document.getElementById('playerhand')
 
 /*-------------------------------Functions------------------------------------*/
-createDeck()
-dealCards()
+init()
+
+function init() {
+  createDeck()
+  dealCards()
+  showSums()
+}
 
 function createDeck() {
   let cards = [];
   values.forEach((value) => {
     suits.forEach((suit) => {
-      const card = value + suit
+      const card = suit + value
       cards.push(card)
     })
   })
@@ -74,15 +86,40 @@ function dealCards() {
 }
 
 function cardValue(card) {
-  const face = card.slice(0, -1)
+  const face = card.slice(1)
   if (face === 'A') {
     return 11
-  } else if (face === 'J', face === 'Q', face === 'K') {
+  } else if (face === 'J' || face === 'Q' || face === 'K') {
     return 10
   } else {
     return parseInt(face, 10)
   }
 }
+
+
+function sumHand(hand) {
+  let sum = 0
+  let aces = 0
+  hand.forEach(card => {
+    const value = cardValue(card)
+    sum += value;
+    if (value === 11) {
+      aces += 1
+    }
+  })
+  while (sum > 21 && aces > 0) {
+    sum -= 10
+    aces -= 1
+  }
+  return sum
+}
+
+function showSums() {
+  let playerSum = sumHand(playerHand)
+  let dealerSum = sumHand(dealerHand)
+  sumContent.innerHTML = `Player Sum: ${playerSum}, Dealer Sum: ${dealerSum}`
+}
+
 
 //// Initialize Deck Function:
 ////   Create a list of cards 2-10 and face cards (J, Q, K, A) for   each suit (Hearts, Diamonds, Clubs, Spades)
