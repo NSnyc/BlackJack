@@ -7,6 +7,15 @@ const startBtn = document.getElementById('start')
 const cardEl = document.createElement('div')
 cardEl.classList.add('card')
 
+const shuffleSound = new Audio('../assets/audio/shuffling-cards.wav')
+shuffleSound.volume = 0.70
+const flipSound = new Audio('../assets/audio/flip-card.mp3')
+flipSound.volume = 0.30
+const dealSound = new Audio('../assets/audio/deal-card.wav')
+dealSound.volume = .50
+const cheerSound = new Audio('../assets/audio/cheer.wav')
+cheerSound.volume = .75
+
 /*-------------------------------Variables-----------------------------------------------*/
 let playerHand = []
 let dealerHand = []
@@ -47,15 +56,23 @@ function init() {
 }
 
 function handleClick(event) {
-  const currentPlayerSum = sumHand(playerHand);
-  if (event.target.id === "hit" && currentPlayerSum < 21) {
-      playerHand.push(deck.pop())
-      render()
-  } else if (event.target.id === "stay") {
+  if (event.target.id === "hit") {
+    dealSound.play()
+    playerHand.push(deck.pop())
+    render()
+    const currentPlayerSum = sumHand(playerHand)
+    if (currentPlayerSum >= 21) {
+      hitBtn.disabled = true
       dealerTurn()
+      return
+    }
+  } else if (event.target.id === "stay") {
+    dealerTurn()
   }
-  checkForWinner()
 }
+
+
+
 
 function createDeck() {
   let cards = []
@@ -73,6 +90,7 @@ function createDeck() {
 }
 
 function dealCards() {
+  shuffleSound.play()
   playerHand.push(deck.pop())
   playerHand.push(deck.pop())
   dealerHand.push(deck.pop())
@@ -124,20 +142,20 @@ function render() {
   dealerContent.innerHTML = ""
   playerContent.innerHTML = ""
   dealerHand.forEach((card, index) => {
-    let cardImg = document.createElement("img")
-    if (index === 0 && !isDealerTurn) {
-      cardImg.src = `../assets/images/backs/red.svg`
-      cardImg.className = "hidden"
-      cardImg.dataset.card = card
-    } else {
-      cardImg.src = `../assets/images/cards/${card}.svg`
-    }
-    dealerContent.appendChild(cardImg)
+  let cardImg = document.createElement("img")
+  if (index === 0 && !isDealerTurn) {
+    cardImg.src = `../assets/images/backs/red.svg`
+    cardImg.className = "hidden"
+    cardImg.dataset.card = card
+  } else {
+    cardImg.src = `../assets/images/cards/${card}.svg`
+  }
+  dealerContent.appendChild(cardImg)
   })
   playerHand.forEach(card => {
-      let cardImg = document.createElement("img")
-      cardImg.src = `../assets/images/cards/${card}.svg`
-      playerContent.appendChild(cardImg)
+    let cardImg = document.createElement("img")
+    cardImg.src = `../assets/images/cards/${card}.svg`
+    playerContent.appendChild(cardImg)
   })
   showSums()
 }
@@ -163,21 +181,27 @@ function checkForWinner() {
   }
   if (playerTotal > 21) {
     messageContent.innerHTML = "Player Busted! Dealer Wins!"
-    dealerTurn()
+    hitBtn.disabled = true
+    stayBtn.disabled = true
+    revealHiddenCard()
+    return
   } else if (playerTotal === 21 && playerHand.length ===2) {
     messageContent.innerHTML = "Player has Blackjack!"
-    dealerTurn()
-    checkForWinner()
+    cheerSound.play()
+    hitBtn.disabled = true
+    stayBtn.disabled = true
   } else if (isDealerTurn) {
-      if (dealerTotal > 21) {
-        messageContent.innerHTML = "Dealer Busted! Player Wins!"
-      } else if (dealerTotal === playerTotal) {
-        messageContent.innerHTML = "It's a tie! Push!"
-      } else if (playerTotal > dealerTotal) {
-        messageContent.innerHTML = "Player Wins!"
-      } else {
-        messageContent.innerHTML = "Dealer Wins!"
-      }
+    if (dealerTotal > 21) {
+      cheerSound.play()
+      messageContent.innerHTML = "Dealer Busted! Player Wins!"
+    } else if (dealerTotal === playerTotal) {
+      messageContent.innerHTML = "It's a tie! Push!"
+    } else if (playerTotal > dealerTotal) {
+      cheerSound.play()
+      messageContent.innerHTML = "Player Wins!"
+    } else {
+      messageContent.innerHTML = "Dealer Wins!"
+    }
   }
 }
 
@@ -187,15 +211,18 @@ function dealerTurn() {
   isDealerTurn = true
   revealHiddenCard()
   while (sumHand(dealerHand) < 17) {
-      dealerHand.push(deck.pop())
-      render()
+    dealerHand.push(deck.pop())
+    dealSound.play()
+    render()
   }
+  checkForWinner()
 }
 
 function revealHiddenCard() {
   let hiddenCard = dealerContent.querySelector('.hidden')
   if (hiddenCard) {
-      hiddenCard.classList.remove('hidden')
-      hiddenCard.src = `../assets/images/cards/${hiddenCard.dataset.card}.svg`
+    flipSound.play()
+    hiddenCard.classList.remove('hidden')
+    hiddenCard.src = `../assets/images/cards/${hiddenCard.dataset.card}.svg`
   }
 }
