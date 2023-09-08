@@ -92,14 +92,13 @@ button:disabled {
 }
 
 #hit{
-  bottom: 22%; 
-  left: 40.5%;
+  bottom: 30%; 
+  left: 39%;
 }
 
 #stay {
-  bottom: 22%; 
-  right: 35%;
-  margin-left: 6vw;
+  bottom: 30%; 
+  left: 62%;
 }
 
 #sum {
