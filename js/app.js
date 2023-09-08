@@ -35,10 +35,16 @@ startBtn.addEventListener('click', () => {
   dealCards()
   showSums()
   checkForWinner()
-  if (messageContent.innerHTML !== "Player wins with a Blackjack!") {
+  if (dealerTotal === 21 && dealerHand.length ===2) {
+    messageContent.innerHTML = "Dealer has Blackjack! Dealer Wins!"
+    revealHiddenCard()
     hitBtn.disabled = false
     stayBtn.disabled = false
-  }
+    return
+  } else if (messageContent.innerHTML !== "Player wins with a Blackjack!") {
+    hitBtn.disabled = false
+    stayBtn.disabled = false
+  } 
 })
 
 /*-------------------------------Functions------------------------------*/
@@ -175,7 +181,7 @@ function checkForWinner() {
       revealHiddenCard()
       endRound()
       return
-    } else if (dealerTotal === 21) {
+    } else if (dealerTotal === 21 && dealerHand.length ===2) {
       messageContent.innerHTML = "Dealer has Blackjack! Dealer Wins!"
       revealHiddenCard()
       endRound()

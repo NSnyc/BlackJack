@@ -5,7 +5,6 @@ Play it live [here](https://enes-blackjack.netlify.app/).
 
 ![BlackJack](./assets/images/screenshot.png)
 
-![Pseudo-Code](https://docs.google.com/document/d/1EgBLV1uMXWaXsLsPHfH_o8YdsbUrv5uqjnqnIx00qlA/edit)
 
 ## Overview
 
