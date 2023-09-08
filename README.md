@@ -5,6 +5,8 @@ Play it live [here](https://enes-blackjack.netlify.app/).
 
 ![BlackJack](./assets/images/screenshot.png)
 
+![Pseudo-Code](https://docs.google.com/document/d/1EgBLV1uMXWaXsLsPHfH_o8YdsbUrv5uqjnqnIx00qlA/edit)
+
 ## Overview
 
 This is a basic implementation of the Blackjack card game, also known as 21.
@@ -48,11 +50,13 @@ In this game, you'll go head-to-head with an automated dealer, trying to draw ca
 - Introduce the ability to split hands.
 - Implement multiplayer mode.
 
+
 ## Technologies Used
 
 - HTML
 - CSS
 - JavaScript
+
 
 ## Attributions
 
