@@ -162,29 +162,26 @@ function checkForWinner() {
   if (dealerHand.length === 2) {
     if (dealerTotal === 21 && playerTotal === 21) {
       messageContent.innerHTML = "Both have Blackjack! Push!"
-      hitBtn.disabled = true
-      stayBtn.disabled = true
       revealHiddenCard()
+      endRound()
       return
     } else if (dealerTotal === 21) {
       messageContent.innerHTML = "Dealer has Blackjack! Dealer Wins!"
-      hitBtn.disabled = true
-      stayBtn.disabled = true
       revealHiddenCard()
+      endRound()
       return
     }
   }
   if (playerTotal > 21) {
     messageContent.innerHTML = "Player Busted! Dealer Wins!"
-    hitBtn.disabled = true
-    stayBtn.disabled = true
     revealHiddenCard()
+    endRound()
     return
   } else if (playerTotal === 21 && playerHand.length ===2) {
-    messageContent.innerHTML = "Player has Blackjack!"
+    messageContent.innerHTML = "Player wins with a Blackjack!"
     cheerSound.play()
-    hitBtn.disabled = true
-    stayBtn.disabled = true
+    endRound()
+    return
   } else if (isDealerTurn) {
     if (dealerTotal > 21) {
       cheerSound.play()
@@ -197,6 +194,7 @@ function checkForWinner() {
     } else {
       messageContent.innerHTML = "Dealer Wins!"
     }
+    endRound()
   }
 }
 
@@ -220,4 +218,9 @@ function revealHiddenCard() {
     hiddenCard.classList.remove('hidden')
     hiddenCard.src = `../assets/images/cards/${hiddenCard.dataset.card}.svg`
   }
+}
+
+function endRound() {
+  hitBtn.disabled = true
+  stayBtn.disabled = true
 }

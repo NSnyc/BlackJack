@@ -57,6 +57,7 @@ button {
   border: .3vw solid rgb(28, 28, 28);
   transform: translateX(-50%);
   font-weight: bolder;
+  cursor: pointer;
 }
 
 button:hover {
@@ -68,6 +69,11 @@ button:active {
   border: .1vw solid rgb(28, 28, 28)
 }
 
+button:disabled {
+  cursor: not-allowed;
+    background-color: lightcoral;
+    opacity: 0.3;
+}
 
 #start{
   top: 78%; 
