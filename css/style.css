@@ -2,7 +2,7 @@ body {
   background-image: url('../assets/images/background.jpg');
   background-repeat: no-repeat;
   background-size: 130vw 100vw;
-  background-position: center center;
+  background-position: center;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -40,7 +40,7 @@ h1#message {
   transform: translateX(-50%);
 }
 
-.card.hidden, #dealerhand img, #playerhand img {
+.card.hidden, img {
   width: 8vw;
   height: 11vw;
   margin: 0.3vw;
@@ -86,7 +86,7 @@ button:active {
 }
 
 #sum {
-  color:antiquewhite;
+  color: antiquewhite;
   background-color: rgba(0, 0, 0, 0.5);
   border-radius: 4px;
   padding: 3px;
@@ -98,5 +98,5 @@ button:active {
 }
 
 div {
-  width:max-content;
+  width: max-content;
 }
