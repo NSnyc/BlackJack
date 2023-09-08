@@ -1,7 +1,8 @@
 # Blackjack Game
 
 
-Play it live [here](https://enes-blackjack.netlify.app/).
+### **Play it live [HERE](https://enes-blackjack.netlify.app/).**
+[Pseudo-Code](https://docs.google.com/document/d/1EgBLV1uMXWaXsLsPHfH_o8YdsbUrv5uqjnqnIx00qlA/)
 
 ![BlackJack](./assets/images/screenshot.png)
 
