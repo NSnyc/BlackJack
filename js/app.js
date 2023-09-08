@@ -1,4 +1,4 @@
-/*------------------------------Constants-----------------------------------------------*/
+/*------------------------------Constants-------------------------*/
 const values = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']
 const suits = ['♠', '♥', '♣', '♦']
 const hitBtn = document.getElementById('hit')
@@ -15,7 +15,7 @@ dealSound.volume = .50
 const cheerSound = new Audio('../assets/audio/cheer.wav')
 cheerSound.volume = .75
 
-/*-------------------------------Variables-----------------------------------------------*/
+/*-------------------------------Variables---------------------------*/
 let playerHand = []
 let dealerHand = []
 let deck = []
@@ -27,7 +27,7 @@ let sumContent = document.getElementById('sum')
 let dealerContent = document.getElementById('dealerhand')
 let playerContent = document.getElementById('playerhand')
 
-/*---------------------------Cache Element References------------------------------------*/
+/*---------------------------Cache Element References----------------*/
 hitBtn.addEventListener('click', handleClick)
 stayBtn.addEventListener('click', handleClick)
 startBtn.addEventListener('click', () => {
@@ -41,7 +41,7 @@ startBtn.addEventListener('click', () => {
   }
 })
 
-/*-------------------------------Functions------------------------------------*/
+/*-------------------------------Functions------------------------------*/
 init()
 
 function init() {
