@@ -30,8 +30,14 @@ let playerContent = document.getElementById('playerhand')
 /*---------------------------Cache Element References------------------------------------*/
 hitBtn.addEventListener('click', handleClick)
 stayBtn.addEventListener('click', handleClick)
-startBtn.addEventListener('click', init)
-
+startBtn.addEventListener('click', () => {
+  init()
+  dealCards()
+  showSums()
+  checkForWinner()
+  hitBtn.disabled = false
+  stayBtn.disabled = false
+})
 
 /*-------------------------------Functions------------------------------------*/
 init()
@@ -40,14 +46,11 @@ function init() {
   playerHand = []
   dealerHand = []
   messageContent.innerHTML = ""
-  hitBtn.disabled = false
-  stayBtn.disabled = false
+  hitBtn.disabled = true
+  stayBtn.disabled = true
   isDealerTurn = false
   createDeck()
-  dealCards()
   render()
-  showSums()
-  checkForWinner()
 }
 
 function handleClick(event) {
@@ -98,6 +101,11 @@ function dealCards() {
   let cardImg2 = document.createElement("img")
   cardImg2.src = `../assets/images/cards/${dealerHand[1]}.svg`
   dealerContent.appendChild(cardImg2)
+  playerHand.forEach(card => {
+    let cardImg = document.createElement("img");
+    cardImg.src = `../assets/images/cards/${card}.svg`;
+    playerContent.appendChild(cardImg)
+  })
 }
 
 function cardValue(card) {
