@@ -27,7 +27,7 @@ h1#message {
 }
 
 #dealerhand, #playerhand {
-  perspective: 1500px;
+  perspective: 700px;
 }
 
 #dealerhand {
@@ -45,8 +45,8 @@ h1#message {
 }
 
 #playerhand img {
-  width: 9.6vw;  
-  height: 13.2vw;
+  width: 10.5vw;  
+  height: 15vw;
 }
 
 .card.hidden, img {
@@ -99,7 +99,7 @@ button:disabled {
 #stay {
   top: 55%; 
   left: 50%;
-  margin-left: 5vw;
+  margin-left: 6vw;
 }
 
 #sum {
