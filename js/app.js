@@ -35,8 +35,10 @@ startBtn.addEventListener('click', () => {
   dealCards()
   showSums()
   checkForWinner()
-  hitBtn.disabled = false
-  stayBtn.disabled = false
+  if (messageContent.innerHTML !== "Player wins with a Blackjack!") {
+    hitBtn.disabled = false
+    stayBtn.disabled = false
+  }
 })
 
 /*-------------------------------Functions------------------------------------*/

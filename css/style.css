@@ -60,7 +60,7 @@ h1#message {
 
 button {
   position: absolute;
-  border-radius: 100%;
+  border-radius: 50px;
   padding: 1vw;
   background-color: #11ffee00;
   transition: background-color 0.3s;
