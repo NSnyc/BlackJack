@@ -96,16 +96,16 @@ function dealCards() {
   dealerHand.push(deck.pop())
   dealerHand.push(deck.pop())
   let cardImg = document.createElement("img")
-  cardImg.src = `../assets/images/backs/red.svg`
-  cardImg.className = "hidden"
-  cardImg.dataset.card = dealerHand[0]
-  dealerContent.appendChild(cardImg)
+    cardImg.src = `../assets/images/backs/red.svg`
+    cardImg.className = "hidden"
+    cardImg.dataset.card = dealerHand[0]
+    dealerContent.appendChild(cardImg)
   let cardImg2 = document.createElement("img")
-  cardImg2.src = `../assets/images/cards/${dealerHand[1]}.svg`
-  dealerContent.appendChild(cardImg2)
-  playerHand.forEach(card => {
-    let cardImg = document.createElement("img");
-    cardImg.src = `../assets/images/cards/${card}.svg`;
+    cardImg2.src = `../assets/images/cards/${dealerHand[1]}.svg`
+    dealerContent.appendChild(cardImg2)
+    playerHand.forEach(card => {
+  let cardImg = document.createElement("img");
+    cardImg.src = `../assets/images/cards/${card}.svg`
     playerContent.appendChild(cardImg)
   })
 }
@@ -176,7 +176,7 @@ function checkForWinner() {
       endRound()
       return
     } else if (dealerTotal === 21 && dealerHand.length ===2) {
-      messageContent.innerHTML = "Dealer has Blackjack! Dealer Wins!"
+      messageContent.innerHTML = "Dealer Wins with Blackjack!"
       revealHiddenCard()
       endRound()
       return

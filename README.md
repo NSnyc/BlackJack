@@ -65,3 +65,4 @@ In this game, you'll go head-to-head with an automated dealer, trying to draw ca
 - [W3Schools](https://www.w3schools.com/)
 - [Ben Manley YouTube- Card Game Tutorial](https://www.youtube.com/watch?v%253D7E8PnVurcWs%2526t%253D799s%2526ab_channel%253DBenManley)
 - [Stack Overflow](https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array)
+- [Shiny Message](https://codepen.io/fazlurr/pen/qbWMRv)
