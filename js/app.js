@@ -3,24 +3,27 @@ const values = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'
 const suits = ['♠', '♥', '♣', '♦']
 const hitBtn = document.getElementById('hit')
 const stayBtn = document.getElementById('stay')
-const startBtn = document.getElementById('start')
+const dealBtn = document.getElementById('deal')
+const borrowBtn = document.getElementById('borrowBtn')
+const bets = [1, 10, 25, 50, 100]
+const initialBalance = 200
 
 
 const shuffleSound = new Audio('../assets/audio/shuffling-cards.wav')
-shuffleSound.volume = 0.70
+shuffleSound.volume = .70
 const flipSound = new Audio('../assets/audio/flip-card.mp3')
-flipSound.volume = 0.30
+flipSound.volume = .30
 const dealSound = new Audio('../assets/audio/deal-card.wav')
 dealSound.volume = .50
 const cheerSound = new Audio('../assets/audio/cheer.wav')
 cheerSound.volume = .75
 
 /*-------------------------------Variables---------------------------*/
+let playerBalance = initialBalance
+let currentBet = 0
 let playerHand = []
 let dealerHand = []
 let deck = []
-let playerSum = 0
-let dealerSum = 0
 let isDealerTurn = false
 let messageContent = document.getElementById('message')
 let sumContent = document.getElementById('sum')
@@ -28,19 +31,22 @@ let dealerContent = document.getElementById('dealerhand')
 let playerContent = document.getElementById('playerhand')
 
 /*---------------------------Cache Element References----------------*/
+document.getElementById('bet1').addEventListener('click', () => placeBet(1))
+document.getElementById('bet10').addEventListener('click', () => placeBet(10))
+document.getElementById('bet25').addEventListener('click', () => placeBet(25))
+document.getElementById('bet50').addEventListener('click', () => placeBet(50))
+document.getElementById('bet100').addEventListener('click', () => placeBet(100))
+
 hitBtn.addEventListener('click', handleClick)
 stayBtn.addEventListener('click', handleClick)
-startBtn.addEventListener('click', () => {
-  init()
+dealBtn.addEventListener('click', () => {
   dealCards()
   checkForBlackjacks()
   showSums()
-  if (!hitBtn.disabled && !stayBtn.disabled) {
-      hitBtn.disabled = false
-      stayBtn.disabled = false
-  }
+  dealBtn.disabled = true
+  hitBtn.disabled = false
+  stayBtn.disabled = false
 })
-
 
 /*-------------------------------Functions------------------------------*/
 init()
@@ -49,9 +55,10 @@ function init() {
   playerHand = []
   dealerHand = []
   messageContent.innerHTML = ""
-  hitBtn.disabled = false
-  stayBtn.disabled = false
+  hitBtn.disabled = true
+  stayBtn.disabled = true
   isDealerTurn = false
+  currentBet = 0
   createDeck()
   render()
 }
@@ -65,10 +72,12 @@ function handleClick(event) {
     if (currentPlayerSum >= 21) {
       hitBtn.disabled = true
       dealerTurn()
+      endPlayerTurn()
       return
     }
   } else if (event.target.id === "stay") {
     dealerTurn()
+    endPlayerTurn()
   }
 }
 
@@ -89,6 +98,12 @@ function createDeck() {
 
 function dealCards() {
   shuffleSound.play()
+  playerHand.length = 0;
+  dealerHand.length = 0
+  dealerContent.innerHTML = ""
+  playerContent.innerHTML = ""
+  stayBtn.disabled = true
+  dealBtn.disabled = true
   playerHand.push(deck.pop())
   playerHand.push(deck.pop())
   dealerHand.push(deck.pop())
@@ -107,8 +122,9 @@ function dealCards() {
       playerContent.appendChild(cardImg)
   })
   if (sumHand(dealerHand) === 21) {
-      checkForWinner()
+    checkForWinner()
   }
+  messageContent.innerHTML = ""
 }
 
 
@@ -171,25 +187,26 @@ function render() {
 function checkForWinner() {
   const playerTotal = sumHand(playerHand)
   const dealerTotal = sumHand(dealerHand)
-    if (playerTotal > 21) {
-    messageContent.innerHTML = "Player Busted! Dealer Wins!"
-    revealHiddenCard()
-    endPlayerTurn()
-    return
-  } else if (isDealerTurn) {
-    if (dealerTotal > 21) {
-      cheerSound.play()
-      messageContent.innerHTML = "Dealer Busted! Player Wins!"
-    } else if (dealerTotal === playerTotal) {
-      messageContent.innerHTML = "It's a tie! Push!"
-    } else if (playerTotal > dealerTotal) {
-      cheerSound.play()
+  if (playerTotal > 21) {
+      messageContent.innerHTML = "Player Busted! <p> Dealer Wins!"
+      playerBalance -= currentBet
+      currentBet = 0
+  } else if (dealerTotal > 21) {
+      messageContent.innerHTML = "Dealer Busted! <p> Player Wins!"
+      playerBalance += currentBet
+      currentBet = 0
+  } else if (playerTotal > dealerTotal) {
       messageContent.innerHTML = "Player Wins!"
-    } else {
+      playerBalance += currentBet
+      currentBet = 0
+  } else if (dealerTotal > playerTotal) {
       messageContent.innerHTML = "Dealer Wins!"
-    }
-    endPlayerTurn()
+      playerBalance -= currentBet
+      currentBet = 0
+  } else {
+      messageContent.innerHTML = "It's a tie! Push!"
   }
+  endPlayerTurn()
 }
 
 function dealerTurn() {
@@ -215,6 +232,7 @@ function revealHiddenCard() {
 }
 
 function endPlayerTurn() {
+  dealBtn.disabled = false
   hitBtn.disabled = true
   stayBtn.disabled = true
 }
@@ -222,17 +240,24 @@ function endPlayerTurn() {
 function checkForBlackjacks() {
   const playerTotal = sumHand(playerHand)
   const dealerTotal = sumHand(dealerHand)
-  if (playerTotal === 21 && dealerTotal === 21) {
-      messageContent.innerHTML = "Both have Blackjack! Push!"
-      revealHiddenCard()
-      endPlayerTurn()
-  } else if (dealerTotal === 21) {
-      messageContent.innerHTML = "Dealer Wins with Blackjack!"
-      revealHiddenCard()
-      endPlayerTurn()
-  } else if (playerTotal === 21) {
+  if (playerTotal === 21 && playerHand.length === 2 && dealerTotal !== 21) {
       messageContent.innerHTML = "Player wins with a Blackjack!"
-      cheerSound.play()
+      playerBalance += Math.floor(1.5 * currentBet)
+      currentBet = 0 
       endPlayerTurn()
+      return true
   }
+  if (dealerTotal === 21 && dealerHand.length === 2 && playerTotal !== 21) {
+      messageContent.innerHTML = "Dealer Wins with Blackjack!"
+      playerBalance -= currentBet
+      currentBet = 0
+      endPlayerTurn()
+      return true
+  }
+  if (dealerTotal === 21 && dealerHand.length === 2 && playerTotal === 21) {
+      messageContent.innerHTML = "Both have Blackjack! Push!"
+      endPlayerTurn()
+      return true
+  }
+  return false
 }

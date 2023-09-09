@@ -17,12 +17,12 @@ In this game, you'll go head-to-head with an automated dealer, trying to draw ca
 
 ## How to Play
 
-1. Press **START** to have the dealer shuffle the deck and deal.
+1. Press **DEAL** to have the dealer shuffle the deck and deal.
 2. You have the option to **HIT** to draw another card or **STAY** to stick with your current hand.
 3. The goal is to have a hand total as close to 21 as possible without exceeding it. Going over is a bust, and you lose automatically.
 4. The dealer reveals their hidden card after you decide to stay. They will draw until their hand totals 17 or more.
 5. If your hand is closer to 21 than the dealer's without busting, you win!
-6. Click the **START** button to shuffle the deck and get a new hand.
+6. Click the **DEAL** button to shuffle the deck and get a new hand.
 
 
 
