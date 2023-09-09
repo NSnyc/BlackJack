@@ -23,7 +23,6 @@ h1#message {
   left: 50%;
   transform: translateX(-50%);
   font-size: 3vw;
-  font-weight: lighter;
 }
 
 #dealerhand, #playerhand {
@@ -119,8 +118,8 @@ div {
 
 .banner {
   position: relative;
-  font-family: Impact, sans-serif;
-  letter-spacing: 2px;
+  font-family: sans-serif;
+  font-weight: 1000;
   background: linear-gradient( #07951d, #c4ed0e, #0d850d);
   background-repeat: no-repeat;
   background-size: 80%;
