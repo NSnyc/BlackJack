@@ -18,10 +18,10 @@ body {
 
 h1#message {
   position: absolute;
-  top: 30%;
+  top: 28%;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 3vw;
+  font-size: 2dvh;
 }
 
 #dealerhand, #playerhand {
@@ -59,11 +59,11 @@ h1#message {
 button {
   position: absolute;
   border-radius: 50px;
-  padding: 1vw;
+  padding: 1vh;
   background-color: #11ffee00;
   transition: background-color 0.3s;
   color: black;
-  border: .3vw solid rgb(28, 28, 28);
+  border: .3vh solid rgb(28, 28, 28);
   transform: translateX(-50%);
   font-weight: bolder;
   cursor: pointer;
@@ -75,7 +75,7 @@ button:hover {
 
 button:active {
   background-color: darkred;
-  border: .1vw solid rgb(28, 28, 28)
+  border: .1vh solid rgb(28, 28, 28)
 }
 
 button:disabled {
@@ -91,12 +91,12 @@ button:disabled {
 
 #hit{
   bottom: 29%; 
-  left: 28.5%;
+  transform: translateX(-300%);
 }
 
 #stay {
   bottom: 29%; 
-  left: 73%;
+  transform: translateX(150%);
 }
 
 #sum {
@@ -105,10 +105,10 @@ button:disabled {
   border-radius: 4px;
   padding: 3px;
   position: absolute;
-  bottom:37.75%;
+  bottom:37%;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 3vw;
+  font-size: 1.5vh;
 }
 
 div {
@@ -125,6 +125,7 @@ div {
   animation: animate 4s infinite;
   -webkit-text-fill-color: rgb(9, 3, 46);
 }
+
 @keyframes animate {
   0% {
     background-position: -500%;
