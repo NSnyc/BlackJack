@@ -33,13 +33,14 @@ stayBtn.addEventListener('click', handleClick)
 startBtn.addEventListener('click', () => {
   init()
   dealCards()
+  checkForBlackjacks()
   showSums()
-  checkForWinner()
-  if (messageContent.innerHTML !== "Player wins with a Blackjack!") {
-    hitBtn.disabled = false
-    stayBtn.disabled = false
-  } 
+  if (!hitBtn.disabled && !stayBtn.disabled) {
+      hitBtn.disabled = false
+      stayBtn.disabled = false
+  }
 })
+
 
 /*-------------------------------Functions------------------------------*/
 init()
@@ -48,8 +49,8 @@ function init() {
   playerHand = []
   dealerHand = []
   messageContent.innerHTML = ""
-  hitBtn.disabled = true
-  stayBtn.disabled = true
+  hitBtn.disabled = false
+  stayBtn.disabled = false
   isDealerTurn = false
   createDeck()
   render()
@@ -70,9 +71,6 @@ function handleClick(event) {
     dealerTurn()
   }
 }
-
-
-
 
 function createDeck() {
   let cards = []
@@ -96,19 +94,23 @@ function dealCards() {
   dealerHand.push(deck.pop())
   dealerHand.push(deck.pop())
   let cardImg = document.createElement("img")
-    cardImg.src = `../assets/images/backs/red.svg`
-    cardImg.className = "hidden"
-    cardImg.dataset.card = dealerHand[0]
-    dealerContent.appendChild(cardImg)
+  cardImg.src = `../assets/images/backs/red.svg`
+  cardImg.className = "hidden"
+  cardImg.dataset.card = dealerHand[0]
+  dealerContent.appendChild(cardImg)
   let cardImg2 = document.createElement("img")
-    cardImg2.src = `../assets/images/cards/${dealerHand[1]}.svg`
-    dealerContent.appendChild(cardImg2)
-    playerHand.forEach(card => {
-  let cardImg = document.createElement("img");
-    cardImg.src = `../assets/images/cards/${card}.svg`
-    playerContent.appendChild(cardImg)
+  cardImg2.src = `../assets/images/cards/${dealerHand[1]}.svg`
+  dealerContent.appendChild(cardImg2)
+  playerHand.forEach(card => {
+      let cardImg = document.createElement("img")
+      cardImg.src = `../assets/images/cards/${card}.svg`
+      playerContent.appendChild(cardImg)
   })
+  if (sumHand(dealerHand) === 21) {
+      checkForWinner()
+  }
 }
+
 
 function cardValue(card) {
   const face = card.slice(1)
@@ -169,28 +171,10 @@ function render() {
 function checkForWinner() {
   const playerTotal = sumHand(playerHand)
   const dealerTotal = sumHand(dealerHand)
-  if (dealerHand.length === 2) {
-    if (dealerTotal === 21 && playerTotal === 21) {
-      messageContent.innerHTML = "Both have Blackjack! Push!"
-      revealHiddenCard()
-      endRound()
-      return
-    } else if (dealerTotal === 21 && dealerHand.length ===2) {
-      messageContent.innerHTML = "Dealer Wins with Blackjack!"
-      revealHiddenCard()
-      endRound()
-      return
-    }
-  }
-  if (playerTotal > 21) {
+    if (playerTotal > 21) {
     messageContent.innerHTML = "Player Busted! Dealer Wins!"
     revealHiddenCard()
-    endRound()
-    return
-  } else if (playerTotal === 21 && playerHand.length ===2) {
-    messageContent.innerHTML = "Player wins with a Blackjack!"
-    cheerSound.play()
-    endRound()
+    endPlayerTurn()
     return
   } else if (isDealerTurn) {
     if (dealerTotal > 21) {
@@ -204,7 +188,7 @@ function checkForWinner() {
     } else {
       messageContent.innerHTML = "Dealer Wins!"
     }
-    endRound()
+    endPlayerTurn()
   }
 }
 
@@ -230,7 +214,25 @@ function revealHiddenCard() {
   }
 }
 
-function endRound() {
+function endPlayerTurn() {
   hitBtn.disabled = true
   stayBtn.disabled = true
+}
+
+function checkForBlackjacks() {
+  const playerTotal = sumHand(playerHand)
+  const dealerTotal = sumHand(dealerHand)
+  if (playerTotal === 21 && dealerTotal === 21) {
+      messageContent.innerHTML = "Both have Blackjack! Push!"
+      revealHiddenCard()
+      endPlayerTurn()
+  } else if (dealerTotal === 21) {
+      messageContent.innerHTML = "Dealer Wins with Blackjack!"
+      revealHiddenCard()
+      endPlayerTurn()
+  } else if (playerTotal === 21) {
+      messageContent.innerHTML = "Player wins with a Blackjack!"
+      cheerSound.play()
+      endPlayerTurn()
+  }
 }
