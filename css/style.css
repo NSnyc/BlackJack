@@ -1,25 +1,24 @@
 body {
   background-image: url('../assets/images/background.jpg');
   background-repeat: no-repeat;
-  background-size: 100vw 100vw;
-  background-position: center;
+  background-size: 100vh 100vh;
+  background-position: center top;
   background-color: rgba(17, 79, 9, 0.9);
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
   width: 98vw;
-  height: 98vw;
-  max-height: 98vw;
+  height: 98vh;
+  max-height: 98vh;
   max-width: 98vw;
   margin: auto;
   position: relative;
-  overflow: visible;
+  overflow: hidden;
 }
 
 h1#message {
   position: absolute;
-  top: 25%;
+  top: 30%;
   left: 50%;
   transform: translateX(-50%);
   font-size: 3vw;
@@ -31,26 +30,26 @@ h1#message {
 
 #dealerhand {
   position: absolute;
-  top: 11%;
+  top: 12%;
   left: 50%;
   transform: translateX(-50%);
 }
 
 #playerhand {
   position: absolute;
-  bottom: 40%;
+  top: 42%;
   left: 50%;
   transform: translateX(-50%);
 }
 
 #playerhand img {
-  width: 11vw;  
-  height: 17vw;
+  width: 11vh;  
+  height: 17vh;
 }
 
 .card.hidden, img {
-  width: 8vw;
-  height: 11vw;
+  width: 8vh;
+  height: 11vh;
   margin: 0.3vw;
   background-color: white;
   transform-origin: bottom center;
@@ -91,25 +90,25 @@ button:disabled {
 }
 
 #hit{
-  bottom: 30%; 
-  left: 39%;
+  bottom: 29%; 
+  left: 32%;
 }
 
 #stay {
-  bottom: 30%; 
-  left: 62%;
+  bottom: 29%; 
+  left: 69.25%;
 }
 
 #sum {
   color: antiquewhite;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.6);
   border-radius: 4px;
   padding: 3px;
   position: absolute;
-  bottom: 37.5%;
+  bottom:37.75%;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 2vw;
+  font-size: 3vw;
 }
 
 div {
@@ -124,7 +123,7 @@ div {
   background-repeat: no-repeat;
   background-size: 80%;
   animation: animate 4s infinite;
-  -webkit-text-fill-color: rgb(24, 15, 85);
+  -webkit-text-fill-color: rgb(9, 3, 46);
 }
 @keyframes animate {
   0% {
